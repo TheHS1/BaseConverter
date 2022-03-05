@@ -9,6 +9,7 @@ public class BaseConverter implements ActionListener{
     private JTextField textField2;
     private JTextField textField3;
     private JTextField textField4;
+    private JComboBox<String> operations;
 
     public BaseConverter() {
         JFrame frame = new JFrame("BaseConverter");
@@ -27,7 +28,7 @@ public class BaseConverter implements ActionListener{
         textField3 = new JTextField();
         textField4 = new JTextField();
         total = new JLabel();
-        JComboBox<String> operations = new JComboBox<>(new String[] {"add", "multiply"});
+        operations = new JComboBox<>(new String[] {"add", "multiply"});
 
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
@@ -83,7 +84,11 @@ public class BaseConverter implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        total.setText((Integer.parseInt(textField2.getText()) + Integer.parseInt(textField4.getText())) + "");
+        if(operations.getSelectedItem() == "add") {
+            total.setText((Integer.parseInt(textField2.getText()) + Integer.parseInt(textField4.getText())) + "");
+        } else if (operations.getSelectedItem() == "multiply") {
+            total.setText((Integer.parseInt(textField2.getText()) * Integer.parseInt(textField4.getText())) + "");
+        }
     }
 
     public static void main(String[] args) {
