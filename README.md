@@ -1,2 +1,2 @@
 # BaseConverter
-Takes numbers and converts them between bases
+Takes numbers and converts them between bases...
