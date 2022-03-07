@@ -1,11 +1,11 @@
 import java.util.*;
 
-public class Number {
+public class NumberBase {
 	private String value;
 	private int base;
 	private List<Digit> digits;
 	
-	public Number(String value, int base) {
+	public NumberBase(String value, int base) {
 		this.value = value;
 		this.base = base;
 		
@@ -18,10 +18,28 @@ public class Number {
 		return this.value;
 	}
 	
-	public Number add(Digit a, base b) {
-		return Number("0");
-		
-		
+	public int length() {
+		return this.digits.length;
+	
+	public NumberBase add(NumberBase a, base b) {
+		if (this instanceOf Digit && a instanceOf Digit) {
+			return this.add(a);
+		}
+		else {
+			this.length() = len1;
+			a.length() = len2;
+			
+			if (len1 >= len2) {int iter = len2; } //take smaller length
+			else { int max = len1; }
+			
+			String result = "";
+			NumberBase tempsum;
+			for (int i = 0; i < max; i--) {
+				tempsum = this[].add(a);
+				result = this.add(a).digits[] + result; //requires 
+			}
+		}
+		return Number(result);
 	}
 
 }
