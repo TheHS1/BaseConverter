@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 public class BaseConverter implements ActionListener{
 
+    private JLabel[] labels;
     private JLabel total;
     private JTextField textField1;
     private JTextField textField2;
@@ -16,13 +17,13 @@ public class BaseConverter implements ActionListener{
 
         JButton button1 = new JButton("Calculate");
         button1.addActionListener(this);
+        
+        String[] labelString = {"Enter the first number", "Enter the second number", "Base ", "Base ", "Value ", "Value"};
+        labels = new JLabel[labelString.length];
+        for (int i = 0; i < labelString.length; i++) {
+            labels[i] = new JLabel(labelString[i]);
+        }
 
-        JLabel label1 = new JLabel("Enter the first number");
-        JLabel label2 = new JLabel("Enter the second number");
-        JLabel label3 = new JLabel("Base ");
-        JLabel label4 = new JLabel("Base ");
-        JLabel label5 = new JLabel("Value ");
-        JLabel label6 = new JLabel("Value ");
         textField1 = new JTextField();
         textField2 = new JTextField();
         textField3 = new JTextField();
@@ -42,12 +43,12 @@ public class BaseConverter implements ActionListener{
         Insets defaultMargin = new Insets(2,2,2,2);
         c.insets = defaultMargin;
 
-        panel.add(label1, c);
+        panel.add(labels[0], c);
         c.gridx = GridBagConstraints.RELATIVE;
         panel.add(textField1, c);
-        panel.add(label3, c);
+        panel.add(labels[2], c);
         panel.add(textField2, c);
-        panel.add(label5, c);
+        panel.add(labels[4], c);
 
         c.gridy = 1;
         c.gridwidth = 5;
@@ -57,13 +58,13 @@ public class BaseConverter implements ActionListener{
         c.insets = defaultMargin;
         c.gridwidth = 1;
 	    c.gridy = 2;
-        panel.add(label2, c);
+        panel.add(labels[1], c);
 
         c.gridx = GridBagConstraints.RELATIVE;
         panel.add(textField3, c);
-        panel.add(label4, c);
+        panel.add(labels[3], c);
         panel.add(textField4, c);
-        panel.add(label6, c);
+        panel.add(labels[5], c);
 
 	    c.gridy = 3;
         c.gridwidth = 5;
