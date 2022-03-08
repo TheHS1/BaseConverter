@@ -18,7 +18,7 @@ public class BaseConverter implements ActionListener{
         JButton button1 = new JButton("Calculate");
         button1.addActionListener(this);
         
-        String[] labelString = {"Enter the first number", "Enter the second number", "Base ", "Base ", "Value ", "Value"};
+        String[] labelString = { "Base Converter", "Enter the first number", "Base", "Value", "Enter the second number", "Base ", "Value "};
         labels = new JLabel[labelString.length];
         for (int i = 0; i < labelString.length; i++) {
             labels[i] = new JLabel(labelString[i]);
@@ -29,53 +29,61 @@ public class BaseConverter implements ActionListener{
         textField3 = new JTextField();
         textField4 = new JTextField();
         total = new JLabel();
-        operations = new JComboBox<>(new String[] {"add", "multiply"});
+        operations = new JComboBox<>(new String[] {"convert", "add", "multiply"});
+
 
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
-	    c.gridy = 0;
+        c.gridy = 0;
         c.ipadx = 100;
         c.ipady = 20;
 
         Insets defaultMargin = new Insets(2,2,2,2);
         c.insets = defaultMargin;
+        // c.gridwidth = 5;
+        
+        labels[0].setFont(labels[0].getFont().deriveFont(64.0f));
+        // labels[0].setBounds(panel.getWidth(), 110, 300, 25);
+        panel.add(labels[0]);
 
-        panel.add(labels[0], c);
+	    c.gridy = 1;
+        c.gridwidth = 1;
+        panel.add(labels[1], c);
         c.gridx = GridBagConstraints.RELATIVE;
         panel.add(textField1, c);
         panel.add(labels[2], c);
         panel.add(textField2, c);
-        panel.add(labels[4], c);
+        panel.add(labels[3], c);
 
-        c.gridy = 1;
+        c.gridy = 2;
         c.gridwidth = 5;
         c.insets = new Insets(30, 0, 30, 0);
         panel.add(operations, c);
 
         c.insets = defaultMargin;
         c.gridwidth = 1;
-	    c.gridy = 2;
-        panel.add(labels[1], c);
+	    c.gridy = 3;
+        panel.add(labels[4], c);
 
         c.gridx = GridBagConstraints.RELATIVE;
         panel.add(textField3, c);
-        panel.add(labels[3], c);
-        panel.add(textField4, c);
         panel.add(labels[5], c);
+        panel.add(textField4, c);
+        panel.add(labels[6], c);
 
-	    c.gridy = 3;
+	    c.gridy = 4;
         c.gridwidth = 5;
         panel.add(button1, c);
 
-        c.gridy = 4;
+        c.gridy = 5;
         c.gridwidth = 1;
         panel.add(total, c);
 
 
-        frame.add(panel, BorderLayout.CENTER);
+        frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
