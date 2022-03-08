@@ -3,26 +3,37 @@ import java.util.*;
 public class NumberBase {
 	private String value;
 	private int base;
-	private List<Digit> digits;
+	private ArrayList<Digit> digits;
 	
 	public NumberBase(String value, int base) {
 		this.value = value;
 		this.base = base;
 		
-		for (int i = 0; i < value.length(); i++) { //add digits to arraylist
-			digits.add(new Digit(value.substring(i,i+1)));
+		if (value.length() > 1) {
+			for (int i = 0; i < value.length(); i++) { //add digits to arraylist
+				digits.add(new Digit(value.substring(i,i+1), base));
+			}
 		}
 	}
 	
-	public String value() {
-		return this.value;
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+	public void setbase(int base) {
+		this.base = base;
 	}
 	
 	public int length() {
-		return this.digits.length;
+		return this.digits.size();
+	}
 	
-	public NumberBase add(NumberBase a, int b) {
-		if (this instanceOf Digit && a instanceOf Digit) {
+	public String toString() {
+		return this.value;
+	}
+	
+	/*public NumberBase add(NumberBase a, int b) {
+		if (this instanceof Digit && a instanceof Digit) {
 			return this.add(a).digits[1];
 		}
 		else {
@@ -45,8 +56,15 @@ public class NumberBase {
 			if (longer == 1) { result = this.value.substring(0, len1-len2-1) + this.digits[len1-len2-1].add(carry) + result; }
 			else if (longer == 2) { result = a.value.substring(0, len2-len1-1) + a.digits[len2-len1-1].add(carry) + result; }
 			
-			return NumberBase(result);
+			return NumberBase(result, b);
 		}
+	}*/
+	
+	public static void main(String[] args) {
+		Digit one = new Digit("5",6);
+		Digit two = new Digit("2",6);
+		System.out.println(one.add(two,6));
 	}
-
+	
+	
 }
