@@ -21,7 +21,7 @@ public class NumberBase {
 	public int length() {
 		return this.digits.length;
 	
-	public NumberBase add(NumberBase a, base b) {
+	public NumberBase add(NumberBase a, int b) {
 		if (this instanceOf Digit && a instanceOf Digit) {
 			return this.add(a).digits[1];
 		}
