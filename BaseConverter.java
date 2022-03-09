@@ -1,107 +1,114 @@
+import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class BaseConverter implements ActionListener{
+public class BaseConverter implements ActionListener {
 
-    private JLabel[] labels;
     private JLabel total;
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
     private JTextField textField4;
     private JComboBox<String> operations;
+    private JPanel elemList;
+    private JFrame frame;
 
     public BaseConverter() {
-        JFrame frame = new JFrame("BaseConverter");
+        frame = new JFrame("BaseConverter");
 
         JButton button1 = new JButton("Calculate");
-        button1.addActionListener(this);
+        // button1.addActionListener(this);
         
-        String[] labelString = { "Base Converter", "Enter the first number", "Base", "Value", "Enter the second number", "Base ", "Value "};
-        labels = new JLabel[labelString.length];
-        for (int i = 0; i < labelString.length; i++) {
-            labels[i] = new JLabel(labelString[i]);
-        }
+        JButton button2 = new JButton("+");
+        button2.addActionListener(this);
 
-        textField1 = new JTextField();
-        textField2 = new JTextField();
-        textField3 = new JTextField();
-        textField4 = new JTextField();
+        JPanel main = new JPanel();
+        main.setLayout(new GridLayout(0,1));
+        JLabel title = new JLabel("Base Converter", JLabel.CENTER);
+        title.setFont(title.getFont().deriveFont(64.0f));
+        main.add(title, BorderLayout.NORTH);
+
+        elemList = new JPanel();
+        elemList.setLayout(new GridLayout(0, 1));
+        main.add(elemList, BorderLayout.CENTER);
+        frame.setContentPane(main);
+
         total = new JLabel();
-        operations = new JComboBox<>(new String[] {"convert", "add", "multiply"});
+        addRow();
+        elemList.add(button2);
 
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.pack();
+        frame.setVisible(true);
 
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
-        panel.setLayout(new GridBagLayout());
+    }
+
+    public void addRow() {
+        if(elemList.getComponentCount() > 0) {
+            elemList.add(new Operations());
+        }
+        elemList.add(new TermRow());
+        frame.pack();
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        addRow();
+    }
+
+    public static void main(String[] args) {
+        new BaseConverter();
+    }
+}
+
+class TermRow extends JPanel{
+    private static int count;
+    private JTextField base;
+    private JTextField value;
+
+    static {
+        count = 1;
+    }
+
+    public TermRow() {
+        base = new JTextField();
+        value = new JTextField();
+
+        this.setLayout(new GridBagLayout());
+        this.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+        this.setLayout(new GridBagLayout());
+
         GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 0;
+        c.gridx = GridBagConstraints.RELATIVE;;
         c.gridy = 0;
         c.ipadx = 100;
         c.ipady = 20;
 
         Insets defaultMargin = new Insets(2,2,2,2);
         c.insets = defaultMargin;
-        // c.gridwidth = 5;
-        
-        labels[0].setFont(labels[0].getFont().deriveFont(64.0f));
-        // labels[0].setBounds(panel.getWidth(), 110, 300, 25);
-        panel.add(labels[0]);
 
-	    c.gridy = 1;
-        c.gridwidth = 1;
-        panel.add(labels[1], c);
-        c.gridx = GridBagConstraints.RELATIVE;
-        panel.add(textField1, c);
-        panel.add(labels[2], c);
-        panel.add(textField2, c);
-        panel.add(labels[3], c);
-
-        c.gridy = 2;
-        c.gridwidth = 5;
-        c.insets = new Insets(30, 0, 30, 0);
-        panel.add(operations, c);
-
-        c.insets = defaultMargin;
-        c.gridwidth = 1;
-	    c.gridy = 3;
-        panel.add(labels[4], c);
-
-        c.gridx = GridBagConstraints.RELATIVE;
-        panel.add(textField3, c);
-        panel.add(labels[5], c);
-        panel.add(textField4, c);
-        panel.add(labels[6], c);
-
-	    c.gridy = 4;
-        c.gridwidth = 5;
-        panel.add(button1, c);
-
-        c.gridy = 5;
-        c.gridwidth = 1;
-        panel.add(total, c);
-
-
-        frame.add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        this.add(new JLabel("Enter Number " + count), c);
+        this.add(base, c);
+        this.add(new JLabel("base"), c);
+        this.add(value, c);
+        this.add(new JLabel("value"), c);
+        count++;
 
     }
-    
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        if(operations.getSelectedItem() == "add") {
-            total.setText((Integer.parseInt(textField2.getText()) + Integer.parseInt(textField4.getText())) + "");
-        } else if (operations.getSelectedItem() == "multiply") {
-            total.setText((Integer.parseInt(textField2.getText()) * Integer.parseInt(textField4.getText())) + "");
-        }
+}
+
+class Operations extends JPanel {
+    private final String[] operators = {"convert", "add", "multiply"};
+    private JComboBox<String> operations;
+
+    public Operations() {
+        operations = new JComboBox<>(operators);
+        this.setLayout(new BorderLayout());
+        this.add(operations);
     }
 
-    public static void main(String[] args) {
-        new BaseConverter();
-    }
 }
 
