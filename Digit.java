@@ -1,4 +1,6 @@
-public class Digit extends Number {
+import java.util.*;
+
+public class Digit extends NumberBase {
 	private static String[] values = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
 	                                  "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", 
 									  "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
@@ -6,6 +8,7 @@ public class Digit extends Number {
 									  "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
 									  "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
 	                                  "Y", "Z", ":", "/"};
+	private static List<String> valuesList = Arrays.asList(values);
 	
 	public Digit(String value, int base) {
 		if (value.length() = 1) {
@@ -13,9 +16,8 @@ public class Digit extends Number {
 		}
 	}
 	
-	@Override
-	public Number add(Digit a, base b) {
-		int temp = this.value() + a.value();
+	public NumberBase add(Digit a, int b) {
+		int temp = valuesList.indexOf(this.toString()) + valuesList.indexOf(a.toString());
 		if (temp >= b) { //handles carryover (if 8 + 9 returns 17)
 			return new Number(values[1] + values[temp % b], b);
 		}
@@ -23,6 +25,4 @@ public class Digit extends Number {
 			return new Digit(temp, b);
 		}			
 	}
-	
-
 }
