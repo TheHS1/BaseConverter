@@ -6,10 +6,6 @@ import java.awt.event.*;
 public class BaseConverter implements ActionListener {
 
     private JLabel total;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
     private JComboBox<String> operations;
     private JPanel elemList;
     private JFrame frame;
