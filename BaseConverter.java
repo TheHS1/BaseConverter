@@ -35,7 +35,6 @@ public class BaseConverter implements ActionListener {
         elemList.add(button2);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
@@ -44,9 +43,9 @@ public class BaseConverter implements ActionListener {
 
     public void addRow() {
         if(elemList.getComponentCount() > 0) {
-            elemList.add(new Operations());
+            elemList.add(new Operations(), 0);
         }
-        elemList.add(new TermRow());
+        elemList.add(new TermRow(), 0);
         frame.pack();
     }
     
