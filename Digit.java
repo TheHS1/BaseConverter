@@ -14,15 +14,20 @@ public class Digit extends NumberBase {
 		super(value, base);
 	}
 	
-	
-	
 	public NumberBase add(Digit a, int b) {
 		int temp = valuesList.indexOf(this.toString()) + valuesList.indexOf(a.toString());
+		System.out.println(temp);
 		if (temp >= b) { //handles carryover (if 8 + 9 returns 17)
 			return new NumberBase(values[1] + values[temp % b], b);
 		}
 		else { 
 			return new NumberBase("0" + values[temp], b);
 		}			
+	}
+	
+	public static void main(String[] args) {
+		Digit one = new Digit("a",13);
+		Digit two = new Digit("2",13);
+		System.out.print(one.add(two,13));
 	}
 }

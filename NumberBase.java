@@ -3,7 +3,7 @@ import java.util.*;
 public class NumberBase {
 	private String value;
 	private int base;
-	private ArrayList<Digit> digits;
+	private List<Digit> digits = new ArrayList<Digit>();
 	
 	public NumberBase(String value, int base) {
 		this.value = value;
@@ -20,7 +20,7 @@ public class NumberBase {
 		this.value = value;
 	}
 	
-	public void setbase(int base) {
+	public void setBase(int base) {
 		this.base = base;
 	}
 	
@@ -59,12 +59,4 @@ public class NumberBase {
 			return NumberBase(result, b);
 		}
 	}*/
-	
-	public static void main(String[] args) {
-		Digit one = new Digit("5",6);
-		Digit two = new Digit("2",6);
-		System.out.println(one.add(two,6));
-	}
-	
-	
 }
