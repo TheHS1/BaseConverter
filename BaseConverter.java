@@ -25,6 +25,7 @@ public class BaseConverter implements ActionListener {
 
         c.gridx = GridBagConstraints.RELATIVE;;
         c.gridy = 0;
+        c.insets = new Insets(2,2,200,2);
         c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         c.fill = java.awt.GridBagConstraints.HORIZONTAL;
         c.weightx = 1;
@@ -80,11 +81,10 @@ class TermRow extends JPanel{
         value = new JTextField();
 
         this.setLayout(new GridBagLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+        this.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = GridBagConstraints.RELATIVE;;
-        // c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         c.fill = java.awt.GridBagConstraints.HORIZONTAL;
         c.gridy = 0;
         c.ipadx = 100;
