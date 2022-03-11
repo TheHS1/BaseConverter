@@ -10,14 +10,19 @@ public class BaseConverter implements ActionListener {
     private JPanel elemList;
     private JFrame frame;
 
+    private JButton calculate, add, sub;
+
     public BaseConverter() {
         frame = new JFrame("BaseConverter");
 
-        JButton button1 = new JButton("Calculate");
+        calculate = new JButton("Calculate");
         // button1.addActionListener(this);
         
-        JButton button2 = new JButton("+");
-        button2.addActionListener(this);
+        add = new JButton("+");
+        add.addActionListener(this);
+
+        sub = new JButton("-");
+        sub.addActionListener(this);
 
         JPanel main = new JPanel();
         main.setLayout(new GridBagLayout());
@@ -27,7 +32,7 @@ public class BaseConverter implements ActionListener {
         c.gridy = 0;
         c.insets = new Insets(2,2,200,2);
         c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        c.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        c.fill = java.awt.GridBagConstraints.NONE;
         c.weightx = 1;
         JLabel title = new JLabel("Base Converter", JLabel.CENTER);
         title.setFont(title.getFont().deriveFont(100f));
@@ -40,8 +45,12 @@ public class BaseConverter implements ActionListener {
         frame.setContentPane(main);
 
         total = new JLabel();
+        c.weightx = 0;
+        elemList.add(add, c);
+
+        elemList.add(sub, c);
+
         addRow();
-        elemList.add(button2);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.pack();
@@ -51,17 +60,27 @@ public class BaseConverter implements ActionListener {
 
     public void addRow() {
         if(TermRow.getCount() <= 4) {
-            if(elemList.getComponentCount() > 0) {
-                elemList.add(new Operations(), elemList.getComponentCount()-1);
+            if(elemList.getComponentCount() > 2) {
+                elemList.add(new Operations(), elemList.getComponentCount()-2);
             }
-            elemList.add(new TermRow(), elemList.getComponentCount()-1);
-            frame.pack();
+            elemList.add(new TermRow(), elemList.getComponentCount()-2);
         }
+    }
+
+    public void removeRow() {
+        elemList.remove(elemList.getComponentCount()-3);
+        elemList.remove(elemList.getComponentCount()-3);
+        TermRow.decCount();
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        addRow();
+        if (e.getSource() == add) {
+            addRow();
+        } else if(e.getSource() == sub) {
+            removeRow();
+        }
+        frame.pack();
     }
 
     public static void main(String[] args) {
@@ -109,6 +128,10 @@ class TermRow extends JPanel{
 
     public static int getCount() {
         return count;
+    }
+
+    public static void decCount() {
+        count--;
     }
 }
 
