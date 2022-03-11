@@ -20,8 +20,10 @@ public class BaseConverter implements ActionListener {
         
         add = new JButton("+");
         add.addActionListener(this);
+        add.setBackground(Color.GREEN);
 
         sub = new JButton("-");
+        sub.setBackground(Color.RED);
         sub.addActionListener(this);
 
         JPanel main = new JPanel();
