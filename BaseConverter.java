@@ -50,11 +50,13 @@ public class BaseConverter implements ActionListener {
     }
 
     public void addRow() {
-        if(elemList.getComponentCount() > 0) {
-            elemList.add(new Operations(), 0);
+        if(TermRow.getCount() <= 4) {
+            if(elemList.getComponentCount() > 0) {
+                elemList.add(new Operations(), elemList.getComponentCount()-1);
+            }
+            elemList.add(new TermRow(), elemList.getComponentCount()-1);
+            frame.pack();
         }
-        elemList.add(new TermRow(), 0);
-        frame.pack();
     }
     
     @Override
@@ -103,6 +105,10 @@ class TermRow extends JPanel{
         this.add(new JLabel("value"), c);
         count++;
 
+    }
+
+    public static int getCount() {
+        return count;
     }
 }
 
