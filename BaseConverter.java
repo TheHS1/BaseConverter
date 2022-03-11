@@ -20,20 +20,27 @@ public class BaseConverter implements ActionListener {
         button2.addActionListener(this);
 
         JPanel main = new JPanel();
-        main.setLayout(new GridLayout(0,1));
-        JLabel title = new JLabel("Base Converter", JLabel.CENTER);
-        title.setFont(title.getFont().deriveFont(64.0f));
-        main.add(title, BorderLayout.NORTH);
+        main.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
+        c.gridx = GridBagConstraints.RELATIVE;;
+        c.gridy = 0;
+        c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        c.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        JLabel title = new JLabel("Base Converter", JLabel.CENTER);
+        title.setFont(title.getFont().deriveFont(100f));
+        main.add(title, c);
+
+        c.gridy = 1;
         elemList = new JPanel();
         elemList.setLayout(new GridLayout(0, 1));
-        main.add(elemList, BorderLayout.CENTER);
+        main.add(elemList, c);
         frame.setContentPane(main);
 
         total = new JLabel();
         addRow();
         elemList.add(button2);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.pack();
@@ -73,16 +80,20 @@ class TermRow extends JPanel{
         value = new JTextField();
 
         this.setLayout(new GridBagLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
-        this.setLayout(new GridBagLayout());
+        this.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = GridBagConstraints.RELATIVE;;
+        // c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        c.fill = java.awt.GridBagConstraints.HORIZONTAL;
         c.gridy = 0;
         c.ipadx = 100;
         c.ipady = 20;
+        c.weightx = 0;
+        c.weighty = 1;
 
-        Insets defaultMargin = new Insets(2,2,2,2);
+
+        Insets defaultMargin = new Insets(0,0,0,0);
         c.insets = defaultMargin;
 
         this.add(new JLabel("Enter Number " + count), c);
@@ -101,8 +112,13 @@ class Operations extends JPanel {
 
     public Operations() {
         operations = new JComboBox<>(operators);
-        this.setLayout(new BorderLayout());
+        this.setLayout(new GridBagLayout());
         this.add(operations);
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = GridBagConstraints.RELATIVE;;
+        c.gridy = 0;
+        c.ipadx = 300;
+        c.ipady = 50;
     }
 
 }
