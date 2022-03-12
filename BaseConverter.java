@@ -23,8 +23,8 @@ public class BaseConverter implements ActionListener {
         add.setBackground(Color.GREEN);
 
         sub = new JButton("-");
-        sub.setBackground(Color.RED);
         sub.addActionListener(this);
+        sub.setBackground(Color.RED);
 
         JPanel main = new JPanel();
         main.setLayout(new GridBagLayout());
