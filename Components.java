@@ -50,7 +50,7 @@ class TermRow extends JPanel{
 }
 
 class Operations extends JPanel {
-    private final String[] operators = {"convert", "add", "multiply"};
+    private final String[] operators = {"add", "multiply"};
     private JComboBox<String> operations;
 
     public Operations() {
@@ -65,4 +65,5 @@ class Operations extends JPanel {
     }
 
 }
+
 
