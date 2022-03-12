@@ -86,6 +86,10 @@ public class BaseConverter implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new BaseConverter();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new BaseConverter();
+            }
+        });
     }
 }
