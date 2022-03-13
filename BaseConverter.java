@@ -16,7 +16,7 @@ public class BaseConverter implements ActionListener,ItemListener {
         frame = new JFrame("BaseConverter");
 
         JPanel functionSelect = new JPanel();
-        JComboBox<String> cb = new JComboBox<String>(new String[] {"convert", "elemList"});
+        JComboBox<String> cb = new JComboBox<String>(new String[] {"Convert", "Operate"});
         // cb.addItemListener(this);
         functionSelect.add(cb);
         cb.addItemListener(this);
@@ -54,11 +54,11 @@ public class BaseConverter implements ActionListener,ItemListener {
 
         JPanel convert = new JPanel();
         convert.add(new JLabel("test"));
-        content.add(convert, "convert");
+        content.add(convert, "Convert");
 
         elemList = new JPanel();
         elemList.setLayout(new GridLayout(0, 1));
-        content.add(elemList, "elemList");
+        content.add(elemList, "Operate");
 
         total = new JLabel();
         elemList.add(add, c);
