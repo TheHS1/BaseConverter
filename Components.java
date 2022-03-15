@@ -47,6 +47,14 @@ class TermRow extends JPanel{
     public static void decCount() {
         count--;
     }
+
+    public JTextField getBase() {
+        return this.base;
+    }
+
+    public int getValue() {
+        return Integer.parseInt(this.value.getText());
+    }
 }
 
 class Operations extends JPanel {
@@ -62,6 +70,10 @@ class Operations extends JPanel {
         c.gridy = 0;
         c.ipadx = 300;
         c.ipady = 50;
+    }
+
+    public JComboBox<String> getOperations() {
+        return this.operations;
     }
 
 }

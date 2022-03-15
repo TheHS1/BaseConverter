@@ -17,12 +17,11 @@ public class BaseConverter implements ActionListener,ItemListener {
 
         JPanel functionSelect = new JPanel();
         JComboBox<String> cb = new JComboBox<String>(new String[] {"Convert", "Operate"});
-        // cb.addItemListener(this);
-        functionSelect.add(cb);
         cb.addItemListener(this);
+        functionSelect.add(cb);
 
         calculate = new JButton("Calculate");
-        // button1.addActionListener(this);
+        calculate.addActionListener(this);
         add = new JButton("+");
         add.addActionListener(this);
         add.setBackground(Color.GREEN);
@@ -41,11 +40,11 @@ public class BaseConverter implements ActionListener,ItemListener {
         c.insets = new Insets(30,0,0,0);
         c.weightx = 1;
         JLabel title = new JLabel("Base Converter", JLabel.CENTER);
-        title.setFont(title.getFont().deriveFont(100f));
+        title.setFont(title.getFont().deriveFont(64f));
         main.add(title, c);
 
         c.gridy = 1;
-        c.insets = new Insets(2,2,100,2);
+        c.insets = new Insets(2,2,50,2);
         main.add(functionSelect, c);
 
         c.gridy = 2;
@@ -60,12 +59,19 @@ public class BaseConverter implements ActionListener,ItemListener {
         elemList.setLayout(new GridLayout(0, 1));
         content.add(elemList, "Operate");
 
-        total = new JLabel();
+        c.insets = new Insets(0, 0, 0, 0);
         elemList.add(add, c);
-
         elemList.add(sub, c);
 
-        
+        c.gridy = 4;
+        total = new JLabel();
+        main.add(total, c);
+
+        c.gridy = 3;
+        c.ipadx = 20;
+        c.ipady = 20;
+        main.add(calculate, c);
+
         addRow();
         addRow();
         frame.setContentPane(main);
@@ -85,6 +91,24 @@ public class BaseConverter implements ActionListener,ItemListener {
         }
     }
 
+    public void totalValues() {
+        TermRow firstTerm = (TermRow) elemList.getComponent(0);
+        int sum = firstTerm.getValue();
+        for (int i = 1; i < (elemList.getComponentCount()) / 2 + 2; i+=2) {
+            Operations o = (Operations) elemList.getComponent(i);
+            TermRow secondTerm = (TermRow) elemList.getComponent(i+1);
+            if (o.getOperations().getSelectedItem() == "add") {
+                sum += secondTerm.getValue();
+                total.setText(sum + "");
+            }
+            else if (o.getOperations().getSelectedItem() == "multiply") {
+                sum *= secondTerm.getValue();
+                total.setText(sum + "");
+            }
+        }
+
+    }
+
     public void removeRow() {
         elemList.remove(elemList.getComponentCount()-3);
         elemList.remove(elemList.getComponentCount()-3);
@@ -95,8 +119,10 @@ public class BaseConverter implements ActionListener,ItemListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == add) {
             addRow();
-        } else if(e.getSource() == sub) {
+        } else if (e.getSource() == sub) {
             removeRow();
+        } else if (e.getSource() == calculate) {
+            totalValues();
         }
         frame.pack();
     } 
