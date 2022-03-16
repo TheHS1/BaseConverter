@@ -16,7 +16,6 @@ class TermRow extends JPanel{
         value = new JTextField();
 
         this.setLayout(new GridBagLayout());
-        this.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = GridBagConstraints.RELATIVE;;
@@ -36,6 +35,7 @@ class TermRow extends JPanel{
         this.add(new JLabel("base"), c);
         this.add(value, c);
         this.add(new JLabel("value"), c);
+        this.setBorder(BorderFactory.createLineBorder(Color.black));
         count++;
 
     }
