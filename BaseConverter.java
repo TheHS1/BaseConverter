@@ -38,7 +38,6 @@ public class BaseConverter implements ActionListener,ItemListener {
         c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         c.fill = java.awt.GridBagConstraints.NONE;
         c.insets = new Insets(30,0,0,0);
-        c.weightx = 1;
         JLabel title = new JLabel("Base Converter", JLabel.CENTER);
         title.setFont(title.getFont().deriveFont(64f));
         main.add(title, c);
@@ -60,17 +59,24 @@ public class BaseConverter implements ActionListener,ItemListener {
         content.add(elemList, "Operate");
 
         c.insets = new Insets(0, 0, 0, 0);
-        elemList.add(add, c);
-        elemList.add(sub, c);
+        JPanel controls = new JPanel(new GridBagLayout());
+        GridBagConstraints cc = new GridBagConstraints();
+        cc.fill = java.awt.GridBagConstraints.BOTH;
+        cc.gridy = 1;
+        cc.ipadx = 40;
+        cc.ipady = 10;
+        controls.add(sub, cc);
+        cc.gridy = 0;
+        cc.gridx = GridBagConstraints.RELATIVE;;
+        controls.add(add, cc);
+        cc.gridx = 1;
+        cc.gridheight = 2;
+        controls.add(calculate, cc);
+        elemList.add(controls);
 
         c.gridy = 4;
         total = new JLabel();
         main.add(total, c);
-
-        c.gridy = 3;
-        c.ipadx = 20;
-        c.ipady = 20;
-        main.add(calculate, c);
 
         addRow();
         addRow();
@@ -84,10 +90,10 @@ public class BaseConverter implements ActionListener,ItemListener {
 
     public void addRow() {
         if(TermRow.getCount() <= 4) {
-            if(elemList.getComponentCount() > 2) {
-                elemList.add(new Operations(), elemList.getComponentCount()-2);
+            if(elemList.getComponentCount() > 1) {
+                elemList.add(new Operations(), elemList.getComponentCount()-1);
             }
-            elemList.add(new TermRow(), elemList.getComponentCount()-2);
+            elemList.add(new TermRow(), elemList.getComponentCount()-1);
         }
     }
 
@@ -110,9 +116,15 @@ public class BaseConverter implements ActionListener,ItemListener {
     }
 
     public void removeRow() {
-        elemList.remove(elemList.getComponentCount()-3);
-        elemList.remove(elemList.getComponentCount()-3);
-        TermRow.decCount();
+        if(TermRow.getCount() >= 4) {
+            try {
+                elemList.remove(elemList.getComponentCount()-3);
+                elemList.remove(elemList.getComponentCount()-3);
+                TermRow.decCount();
+            } catch(Exception e) {
+                
+            }
+        }
     }
     
     @Override
