@@ -25,9 +25,7 @@ class TermRow extends JPanel{
         c.ipady = 20;
         c.weightx = 0;
         c.weighty = 1;
-
-        Insets defaultMargin = new Insets(0,0,0,0);
-        c.insets = defaultMargin;
+        c.insets = new Insets(2,2,2,2);
 
         this.add(new JLabel("Enter value " + count), c);
         this.add(base, c);
@@ -85,9 +83,9 @@ class ConvertView extends JPanel {
 
 class OperationsView extends JPanel {
 
-    public OperationsView(JButton add, JButton sub, JButton calculate) {
+    public OperationsView() {
         this.setLayout(new GridLayout(0, 1));
-        this.add(new Controls(add, sub, calculate));
+        // this.add(new Controls(add, sub, calculate));
         // todo add another enclosing panel for rows to separate from calculations
         this.addRow();
         this.addRow();
@@ -95,18 +93,18 @@ class OperationsView extends JPanel {
 
     public void addRow() {
         if(TermRow.getCount() <= 4) {
-            if(this.getComponentCount() > 1) {
-                this.add(new Operations(), this.getComponentCount()-1);
+            if(this.getComponentCount() > 0) {
+                this.add(new Operations());
             }
-            this.add(new TermRow(), this.getComponentCount()-1);
+            this.add(new TermRow());
         }
     }
 
     public void removeRow() {
         if(TermRow.getCount() >= 4) {
             try {
-                this.remove(this.getComponentCount()-2);
-                this.remove(this.getComponentCount()-2);
+                this.remove(this.getComponentCount()-1);
+                this.remove(this.getComponentCount()-1);
                 TermRow.decCount();
             } catch(Exception e) {
                 
