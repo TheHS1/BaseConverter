@@ -7,7 +7,7 @@ public class BaseConverter implements ActionListener,ItemListener {
 
     private JLabel total;
     private JComboBox<String> operations;
-    private JPanel elemList, content;
+    private JPanel elemList, content, container;
     private JFrame frame;
     private JButton calculate, add, sub;
 
@@ -50,7 +50,14 @@ public class BaseConverter implements ActionListener,ItemListener {
         main.add(content, c);
 
         content.add(new ConvertView(), "Convert");
-        content.add(new OperationsView(add, sub, calculate), "Operate");
+
+        container = new JPanel(new GridBagLayout());
+        GridBagConstraints containC = new GridBagConstraints();
+        containC.gridy = 0;
+        container.add(new OperationsView(), containC);
+        containC.gridy = 1;
+        container.add(new Controls(add, sub, calculate), containC);
+        content.add(container, "Operate");
 
         c.gridy = 4;
         total = new JLabel();
@@ -66,7 +73,7 @@ public class BaseConverter implements ActionListener,ItemListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        OperationsView opView = (OperationsView) content.getComponent(1);
+        OperationsView opView = (OperationsView) container.getComponent(0);
         if (e.getSource() == add) {
             opView.addRow();
         } else if (e.getSource() == sub) {
