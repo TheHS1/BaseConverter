@@ -7,7 +7,7 @@ public class BaseConverter implements ActionListener,ItemListener {
 
     private JLabel total;
     private JComboBox<String> operations;
-    private JPanel elemList, content, container;
+    private JPanel content, container, main;
     private JFrame frame;
     private JButton calculate, add, sub;
 
@@ -28,11 +28,11 @@ public class BaseConverter implements ActionListener,ItemListener {
         sub.addActionListener(this);
         sub.setBackground(Color.RED);
 
-        JPanel main = new JPanel();
+        main = new JPanel();
         main.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
-        c.gridx = GridBagConstraints.RELATIVE;;
+        c.gridx = GridBagConstraints.RELATIVE;
         c.gridy = 0;
         c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         c.fill = java.awt.GridBagConstraints.NONE;
@@ -56,12 +56,13 @@ public class BaseConverter implements ActionListener,ItemListener {
         containC.gridy = 0;
         container.add(new OperationsView(), containC);
         containC.gridy = 1;
+        containC.insets = new Insets(15, 0, 0, 0);
         container.add(new Controls(add, sub, calculate), containC);
         content.add(container, "Operate");
 
         c.gridy = 4;
         total = new JLabel();
-        main.add(total, c);
+        main.add(new Output(), c);
 
         frame.setContentPane(main);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,7 +80,7 @@ public class BaseConverter implements ActionListener,ItemListener {
         } else if (e.getSource() == sub) {
             opView.removeRow();
         } else if (e.getSource() == calculate) {
-            this.total.setText(opView.totalValues() + "");
+            ((JLabel)((Output)this.main.getComponent(this.main.getComponentCount()-1)).getComponent(2)).setText(opView.totalValues());
         }
         frame.pack();
     } 
