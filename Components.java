@@ -112,21 +112,24 @@ class OperationsView extends JPanel {
         }
     }
 
-    public int totalValues() {
-        TermRow firstTerm = (TermRow) this.getComponent(0);
-        int sum = firstTerm.getValue();
-        for (int i = 1; i < (this.getComponentCount()) / 2 + 2; i+=2) {
-            Operations o = (Operations) this.getComponent(i);
-            TermRow secondTerm = (TermRow) this.getComponent(i+1);
-            if (o.getOperations().getSelectedItem() == "add") {
-                sum += secondTerm.getValue();
+    public String totalValues() {
+        try {
+            TermRow firstTerm = (TermRow) this.getComponent(0);
+            int sum = firstTerm.getValue();
+            for (int i = 1; i < (this.getComponentCount()) / 2 + 2; i+=2) {
+                Operations o = (Operations) this.getComponent(i);
+                TermRow secondTerm = (TermRow) this.getComponent(i+1);
+                if (o.getOperations().getSelectedItem() == "add") {
+                    sum += secondTerm.getValue();
+                }
+                else if (o.getOperations().getSelectedItem() == "multiply") {
+                    sum *= secondTerm.getValue();
+                }
             }
-            else if (o.getOperations().getSelectedItem() == "multiply") {
-                sum *= secondTerm.getValue();
-            }
+            return sum + "";
+        } catch (Exception e) {
+            return "Please enter a valid input";
         }
-        return sum;
-
     }
 }
 
@@ -169,6 +172,33 @@ class Operations extends JPanel {
 
     public JComboBox<String> getOperations() {
         return this.operations;
+    }
+
+}
+
+class Output extends JPanel {
+    private JLabel total;
+    private JTextField outputBase;
+    private GridBagConstraints c;
+    
+    public Output() {
+        this.setLayout(new GridBagLayout());
+
+        total = new JLabel("", SwingConstants.CENTER);
+        total.setOpaque(true);
+        total.setBackground(Color.YELLOW);
+
+        c = new GridBagConstraints();
+        c.ipadx = 80;
+        c.ipady = 15;
+        outputBase = new JTextField();
+        this.add(outputBase, c);
+        c.insets = new Insets(0, 10, 0, 0);
+        this.add(new JLabel("Output Base"), c);
+        c.insets = new Insets(0, 50, 0, 0);
+        c.ipady = 80;
+        c.ipadx = 160;
+        this.add(total, c);
     }
 
 }
