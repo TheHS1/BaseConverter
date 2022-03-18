@@ -29,6 +29,10 @@ public class NumberBased {
 		return result * neg;
 	}
 	
+	public static List<String> getValues() {
+		return valuesList;
+	} 
+	
 	public static String convert(String input, int oldBase, int newBase) {
 		int j = 0;
 		int testValue = 0;
@@ -39,7 +43,7 @@ public class NumberBased {
 			neg = "-";
 		}
 		
-		while (testValue < baseTen) { //find power of newbase that fits in base10 conversion
+		while (testValue <= baseTen) { //find power of newbase that fits in base10 conversion
 			testValue = (int)Math.pow(newBase, j++);
 		}
 
@@ -64,10 +68,5 @@ public class NumberBased {
 	public static String multiply(String num1, int base1, String num2, int base2, int outputBase) {
 		int product = toBaseTen(num1, base1) * toBaseTen(num2, base2);
 		return convert(product + "", 10, outputBase);
-	}
-
-	public static void main(String[] args) {
-		System.out.println(convert("23", 5, 10));
-		System.out.println(multiply("-23",5,"10",10,10));
 	}
 }
