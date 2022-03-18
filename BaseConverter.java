@@ -9,7 +9,7 @@ public class BaseConverter implements ActionListener,ItemListener {
     private JComboBox<String> operations;
     private JPanel content, container, main;
     private JFrame frame;
-    private JButton calculate, add, sub;
+    private JButton calculate, add, sub, convert;
 
     public BaseConverter() {
         frame = new JFrame("BaseConverter");
@@ -27,6 +27,8 @@ public class BaseConverter implements ActionListener,ItemListener {
         sub = new JButton("-");
         sub.addActionListener(this);
         sub.setBackground(Color.RED);
+        convert = new JButton("Convert");
+        convert.addActionListener(this);
 
         main = new JPanel();
         main.setLayout(new GridBagLayout());
@@ -49,7 +51,7 @@ public class BaseConverter implements ActionListener,ItemListener {
         content = new JPanel(new CardLayout());
         main.add(content, c);
 
-        content.add(new ConvertView(), "Convert");
+        content.add(new ConvertView(convert), "Convert");
 
         container = new JPanel(new GridBagLayout());
         GridBagConstraints containC = new GridBagConstraints();
@@ -75,12 +77,15 @@ public class BaseConverter implements ActionListener,ItemListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         OperationsView opView = (OperationsView) container.getComponent(0);
+        JLabel total = ((JLabel)((Output)this.main.getComponent(this.main.getComponentCount()-1)).getComponent(2));
         if (e.getSource() == add) {
             opView.addRow();
         } else if (e.getSource() == sub) {
             opView.removeRow();
         } else if (e.getSource() == calculate) {
-            ((JLabel)((Output)this.main.getComponent(this.main.getComponentCount()-1)).getComponent(2)).setText(opView.totalValues());
+            total.setText(opView.totalValues((JTextField)(((Output)main.getComponent(3)).getComponent(0))));
+        } else if (e.getSource() == convert) {
+            total.setText(((ConvertView) this.content.getComponent(0)).convert((JTextField)((Output)(this.main.getComponent(3))).getComponent(0)));
         }
         frame.pack();
     } 

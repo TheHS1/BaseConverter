@@ -44,12 +44,12 @@ class TermRow extends JPanel{
         count--;
     }
 
-    public JTextField getBase() {
-        return this.base;
+    public int getBase() {
+        return Integer.parseInt(this.base.getText());
     }
 
-    public int getValue() {
-        return Integer.parseInt(this.value.getText());
+    public String getValue() {
+        return this.value.getText();
     }
 }
 
@@ -57,7 +57,7 @@ class ConvertView extends JPanel {
     private GridBagConstraints c; 
     private JTextField base, value;
 
-    public ConvertView() {
+    public ConvertView(JButton convert) {
         this.setLayout(new GridBagLayout());
         base = new JTextField();
         value = new JTextField();
@@ -78,6 +78,17 @@ class ConvertView extends JPanel {
         this.add(new JLabel("value"), c);
         this.add(value, c);
 
+        c.gridy = 2;
+        c.gridwidth = 2;
+        c.insets = new Insets(20, 0, 0, 0);
+        c.fill = java.awt.GridBagConstraints.BOTH;
+        this.add(convert, c);
+
+    }
+
+    public String convert(JTextField outputBase) {
+        System.out.println(outputBase.getText());
+        return NumberBased.convert(this.value.getText(), Integer.parseInt(this.base.getText()), Integer.parseInt(outputBase.getText()));
     }
 }
 
@@ -85,8 +96,6 @@ class OperationsView extends JPanel {
 
     public OperationsView() {
         this.setLayout(new GridLayout(0, 1));
-        // this.add(new Controls(add, sub, calculate));
-        // todo add another enclosing panel for rows to separate from calculations
         this.addRow();
         this.addRow();
     }
@@ -112,21 +121,25 @@ class OperationsView extends JPanel {
         }
     }
 
-    public String totalValues() {
+    public String totalValues(JTextField outputBase) {
         try {
             TermRow firstTerm = (TermRow) this.getComponent(0);
-            int sum = firstTerm.getValue();
-            for (int i = 1; i < (this.getComponentCount()) / 2 + 2; i+=2) {
+            int base = firstTerm.getBase();
+            String sum = firstTerm.getValue();
+            System.out.println("first term is " + firstTerm.getValue());
+            System.out.println("The count is " + this.getComponentCount());
+            for (int i = 1; i < (this.getComponentCount()); i+=2) {
                 Operations o = (Operations) this.getComponent(i);
                 TermRow secondTerm = (TermRow) this.getComponent(i+1);
                 if (o.getOperations().getSelectedItem() == "add") {
-                    sum += secondTerm.getValue();
+                    sum = NumberBased.add(sum, base, secondTerm.getValue(), secondTerm.getBase(), Integer.parseInt(outputBase.getText()));
                 }
                 else if (o.getOperations().getSelectedItem() == "multiply") {
-                    sum *= secondTerm.getValue();
+                    sum = NumberBased.multiply(sum, base, secondTerm.getValue(), secondTerm.getBase(), Integer.parseInt(outputBase.getText()));
                 }
+                base = Integer.parseInt(outputBase.getText());
             }
-            return sum + "";
+            return sum;
         } catch (Exception e) {
             return "Please enter a valid input";
         }
