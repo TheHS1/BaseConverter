@@ -128,7 +128,7 @@ class OperationsView extends JPanel {
     }
 
     public String totalValues(JTextField outputBase) {
-        try {
+        // try {
             TermRow firstTerm = (TermRow) this.getComponent(0);
             int base = firstTerm.getBase();
             String sum = firstTerm.getValue();
@@ -144,9 +144,9 @@ class OperationsView extends JPanel {
                 base = Integer.parseInt(outputBase.getText());
             }
             return sum;
-        } catch (Exception e) {
-            return "Please enter a valid input";
-        }
+        // } catch (Exception e) {
+        //     return "Please enter a valid input";
+        // }
     }
 }
 

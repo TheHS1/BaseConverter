@@ -14,7 +14,10 @@ public class NumberBased {
 	private static List<String> valuesList = Arrays.asList(values);
 	
 	public static int toBaseTen(String input, int base) {
-		int result = 0;
+		if (input.equals("")) {
+            return 0;
+        }
+        int result = 0;
 		int neg = 1;
 		String temp;
 		if (input.substring(0,1).equals("-")) {
