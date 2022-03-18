@@ -87,8 +87,14 @@ class ConvertView extends JPanel {
     }
 
     public String convert(JTextField outputBase) {
-        System.out.println(outputBase.getText());
-        return NumberBased.convert(this.value.getText(), Integer.parseInt(this.base.getText()), Integer.parseInt(outputBase.getText()));
+        try {
+            if(Integer.parseInt(this.base.getText()) > 64 || Integer.parseInt(this.base.getText()) < 2 || Integer.parseInt(outputBase.getText()) > 64 || Integer.parseInt(outputBase.getText()) < 2) {
+                return "Only bases 1-64 are allowed";
+            }
+            return NumberBased.convert(this.value.getText(), Integer.parseInt(this.base.getText()), Integer.parseInt(outputBase.getText()));
+        } catch (Exception e) {
+            return "Invalid input or input unfilled";
+        }
     }
 }
 
@@ -126,8 +132,6 @@ class OperationsView extends JPanel {
             TermRow firstTerm = (TermRow) this.getComponent(0);
             int base = firstTerm.getBase();
             String sum = firstTerm.getValue();
-            System.out.println("first term is " + firstTerm.getValue());
-            System.out.println("The count is " + this.getComponentCount());
             for (int i = 1; i < (this.getComponentCount()); i+=2) {
                 Operations o = (Operations) this.getComponent(i);
                 TermRow secondTerm = (TermRow) this.getComponent(i+1);
