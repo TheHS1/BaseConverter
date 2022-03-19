@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+// class for each row of terms 
 class TermRow extends JPanel{
     private static int count;
     private JTextField base;
@@ -53,6 +54,7 @@ class TermRow extends JPanel{
     }
 }
 
+// View used by the convert JPanel
 class ConvertView extends JPanel {
     private GridBagConstraints c; 
     private JTextField base, value;
@@ -87,6 +89,8 @@ class ConvertView extends JPanel {
     }
 
     public String convert(JTextField outputBase) {
+        // Check that base is between 1 and 64 inclusive
+        // Repeated in the totalValues() method so should probably be designed better
         try {
             if(Integer.parseInt(this.base.getText()) > 64 || Integer.parseInt(this.base.getText()) < 2 || Integer.parseInt(outputBase.getText()) > 64 || Integer.parseInt(outputBase.getText()) < 2) {
                 return "Only bases 1-64 are allowed";
@@ -98,6 +102,7 @@ class ConvertView extends JPanel {
     }
 }
 
+// View used by the Operations function
 class OperationsView extends JPanel {
 
     public OperationsView() {
@@ -153,6 +158,7 @@ class OperationsView extends JPanel {
     }
 }
 
+// Calculate, +, - button panel
 class Controls extends JPanel {
     private GridBagConstraints c;
 
@@ -174,6 +180,7 @@ class Controls extends JPanel {
     }
 }
 
+// Panel in OperationsView that houses the available operations
 class Operations extends JPanel {
     private final String[] operators = {"add", "multiply"};
     private JComboBox<String> operations;
@@ -196,6 +203,7 @@ class Operations extends JPanel {
 
 }
 
+// Output area including output base and textArea where errors/answer is output
 class Output extends JPanel {
     private JLabel total;
     private JTextField outputBase;
