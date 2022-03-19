@@ -128,13 +128,16 @@ class OperationsView extends JPanel {
     }
 
     public String totalValues(JTextField outputBase) {
-        // try {
+        try {
             TermRow firstTerm = (TermRow) this.getComponent(0);
             int base = firstTerm.getBase();
             String sum = firstTerm.getValue();
             for (int i = 1; i < (this.getComponentCount()); i+=2) {
                 Operations o = (Operations) this.getComponent(i);
                 TermRow secondTerm = (TermRow) this.getComponent(i+1);
+                if(base > 64 || base < 2 || secondTerm.getBase() > 64 || secondTerm.getBase() < 2 || Integer.parseInt(outputBase.getText()) > 64 || Integer.parseInt(outputBase.getText()) < 2) {
+                    return "Only bases 1-64 are allowed";
+                }
                 if (o.getOperations().getSelectedItem() == "add") {
                     sum = NumberBased.add(sum, base, secondTerm.getValue(), secondTerm.getBase(), Integer.parseInt(outputBase.getText()));
                 }
@@ -144,9 +147,9 @@ class OperationsView extends JPanel {
                 base = Integer.parseInt(outputBase.getText());
             }
             return sum;
-        // } catch (Exception e) {
-        //     return "Please enter a valid input";
-        // }
+        } catch (Exception e) {
+            return "Please enter a valid input";
+        }
     }
 }
 
@@ -167,7 +170,7 @@ class Controls extends JPanel {
         this.add(add, c);
         c.gridx = 1;
         c.gridheight = 2;
-        this.add(calculate, c); // TODO add button
+        this.add(calculate, c);
     }
 }
 
