@@ -43,7 +43,9 @@ public class NumberBased {
 		if (baseTen < 0) {
 			baseTen *= -1;
 			neg = "-";
-		}
+		} else if (baseTen == 0) {
+            return "0";
+        }
 		
 		while (testValue <= baseTen) { //find power of newbase that fits in base10 conversion
 			testValue = (int)Math.pow(newBase, j++);
