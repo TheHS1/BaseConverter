@@ -149,6 +149,9 @@ class OperationsView extends JPanel {
                 else if (o.getOperations().getSelectedItem() == "multiply") {
                     sum = NumberBased.multiply(sum, base, secondTerm.getValue(), secondTerm.getBase(), Integer.parseInt(outputBase.getText()));
                 }
+                if (sum.equals("false")) {
+                    return "<html>Invalid input:<br> the base does not match the inputted value</html>";
+                }
                 base = Integer.parseInt(outputBase.getText());
             }
             return sum;

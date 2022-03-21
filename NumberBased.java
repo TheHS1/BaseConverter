@@ -32,11 +32,10 @@ public class NumberBased {
 		return result * neg;
 	}
 	
-	public static List<String> getValues() {
-		return valuesList;
-	} 
-	
 	public static String convert(String input, int oldBase, int newBase) {
+        if (!isValid(input, oldBase)) {
+            return "<html>Invalid input:<br> the base does not match the inputted value</html>";
+        }
 		int j = 0;
 		int testValue = 0;
 		String temp = "", result = "", neg = "";
@@ -63,13 +62,28 @@ public class NumberBased {
 	}
 
 	public static String add(String num1, int base1, String num2, int base2, int outputBase) {
+        if (!(isValid(num1, base1) && isValid(num2, base2))) {
+            return "false";
+        }
 		int sum = toBaseTen(num1, base1) + toBaseTen(num2, base2);
 		System.out.println(sum);
 		return convert(sum + "", 10, outputBase);
 	}
 
 	public static String multiply(String num1, int base1, String num2, int base2, int outputBase) {
+        if (!isValid(num1, base1) || !isValid(num2, base2)) {
+            return "false";
+        }
 		int product = toBaseTen(num1, base1) * toBaseTen(num2, base2);
 		return convert(product + "", 10, outputBase);
 	}
+
+    public static boolean isValid(String num, int base) {
+        for (int i = 0; i < num.length(); i++) {
+            if(valuesList.indexOf(num.substring(i, i+1)) > (base - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
